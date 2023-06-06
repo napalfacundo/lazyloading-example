@@ -96,19 +96,37 @@ const handleChange = (event, newValue) => {
 Lazy loading example
 
 ```jsx
-import Autocomplete from 'apollo-react/components/Autocomplete';
+import Autocomplete from "apollo-react/components/Autocomplete";
 
-import countries from './countries.data';
+import countriesData from "./countries.data";
 
 const [value, setValue] = React.useState([]);
+const [countries, setCountries] = React.useState([]);
+const [isLoading, setIsLoading] = React.useState(false);
 
 const handleChange = (event, newValue) => {
   setValue(newValue);
+
+  if(contries.length === 0) {
+    loadCountries()
+  }
+};
+
+const loadCountries = () => {
+  // place loading in true, to reflect that the data is coming
+  setLoading(true);
+
+  setTimeout(() => {
+    // append the countries data to the state
+    setCountries(countriesData);
+    // reset the loading state to false
+    setLoading(false);
+  }, 2_000);
 };
 
 <div style={{ maxWidth: 400 }}>
   <Autocomplete
-    label="Label"
+    label={!isLoading ? "Label" : "Loading..."}
     placeholder="Type to search…"
     helperText="Type to search"
     source={countries}
