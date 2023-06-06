@@ -107,20 +107,20 @@ const [isLoading, setIsLoading] = React.useState(false);
 const handleChange = (event, newValue) => {
   setValue(newValue);
 
-  if(contries.length === 0) {
+  if(countries.length === 0) {
     loadCountries()
   }
 };
 
 const loadCountries = () => {
   // place loading in true, to reflect that the data is coming
-  setLoading(true);
+  setIsLoading(true);
 
   setTimeout(() => {
     // append the countries data to the state
     setCountries(countriesData);
     // reset the loading state to false
-    setLoading(false);
+    setIsLoading(false);
   }, 2_000);
 };
 
