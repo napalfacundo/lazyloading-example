@@ -101,35 +101,46 @@ import Autocomplete from "apollo-react/components/Autocomplete";
 import countriesData from "./countries.data";
 
 const [value, setValue] = React.useState([]);
-const [countries, setCountries] = React.useState([]);
-const [isLoading, setIsLoading] = React.useState(false);
+// const [countries, setCountries] = React.useState([]);
+// const [isLoading, setIsLoading] = React.useState(false);
+const [countries, setCountries] = useState([])
+const [isLoading, setIsLoading] = useState(false);
 
 const handleChange = (event, newValue) => {
   setValue(newValue);
 
-  if(countries.length === 0) {
-    loadCountries()
+  if (newValue.length >= 1) {
+    setisLoading(true)
+
+    setTimeout(() => {
+      if(countriesData.length > 0) {
+      setCountries(countriesData)
+      setIsLoading(false)
+    }}, 2000)
+  } else {
+    setCountries([])
+    setIsLoading(false)
   }
 };
 
-const loadCountries = () => {
-  // place loading in true, to reflect that the data is coming
-  setIsLoading(true);
+// const loadCountries = () => {
+//   // place loading in true, to reflect that the data is coming
+//   setIsLoading(true);
 
-  setTimeout(() => {
-    // append the countries data to the state
-    setCountries(countriesData);
-    // reset the loading state to false
-    setIsLoading(false);
-  }, 2_000);
-};
+//   setTimeout(() => {
+//     // append the countries data to the state
+//     setCountries(countriesData);
+//     // reset the loading state to false
+//     setIsLoading(false);
+//   }, 2_000);
+// };
 
 <div style={{ maxWidth: 400 }}>
   <Autocomplete
     label={!isLoading ? "Label" : "Loading..."}
     placeholder="Type to search…"
     helperText="Type to search"
-    source={countries}
+    source={(countries.length >= 1 && isLoading === false) ? countries : []}
     fullWidth
     multiple
     value={value}
